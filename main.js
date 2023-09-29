@@ -11,7 +11,8 @@ const occupations = [
 const maxFreelancer = 15;
 // This array will hold freelancer objects.
 const freelancers = [
-
+  { name: "Alice", occupation: "Writer", price: 30 },
+  { name: "Bob", occupation: "Teacher", price: 50 },
 ]; 
 
 // Call the renderFreelancers function initially
@@ -53,6 +54,7 @@ function generateRandomFreelancer() {
   // Call the renderFreelancers function to update the displayed list
   renderFreelancers();
    
+  calculateAveragePrice();
    // stop adding freelancers if reached the max number of freelancers.
   if(freelancers.length >= maxFreelancer) {
     clearInterval(addFreelancer)
@@ -61,3 +63,18 @@ function generateRandomFreelancer() {
 
 
 
+function calculateAveragePrice() {
+  const averagePriceMessage = document.querySelector("#average-price");
+  if (freelancers.length === 0) {
+    averagePriceMessage.textContent = "No freelancers available";
+    return;
+  }
+
+  const totalPrices = freelancers.reduce((sum, freelancer) => sum + freelancer.price, 0);
+  const averagePrice = totalPrices / freelancers.length;
+
+  averagePriceMessage.textContent = `Average starting price: $${averagePrice.toFixed(2)}`;
+}
+
+// Call the calculateAveragePrice function initially
+calculateAveragePrice();
